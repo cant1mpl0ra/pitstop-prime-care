@@ -11,3 +11,4 @@
 
 - Centralizar contenido comercial editable en `src/content/site.ts`; facilita conectar PIT STOP ADMIN sin acoplar textos a las páginas.
 - Canalizar el endpoint externo de citas mediante funciones de servidor validadas; estabiliza el contrato y evita exponer detalles del proveedor.
+- Mantener la navegación pública principal centralizada con el contenido comercial; evita divergencias entre cabecera y pie.
