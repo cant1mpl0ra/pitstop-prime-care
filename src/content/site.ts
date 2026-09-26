@@ -21,3 +21,17 @@ export const editableContact = {
 };
 export const processSteps = ["Reserva", "Recepción", "Diagnóstico", "Presupuesto digital", "Autorización", "Reparación", "Control de calidad", "Vehículo listo"];
 export const trackingSteps = ["Vehículo recibido", "Diagnóstico", "Presupuesto enviado", "Autorizado", "Reparación", "Control de calidad", "Listo para recoger"];
+
+export const primaryNavigation = [
+  { to: "/", label: "Inicio" },
+  { to: "/sobre-nosotros", label: "Sobre nosotros" },
+  { to: "/servicios", label: "Servicios" },
+  { to: "/como-trabajamos", label: "Cómo trabajamos" },
+  { to: "/contacto", label: "Contacto" },
+] as const;
+
+export const secondaryNavigation = [
+  { to: "/presupuesto-digital", label: "Presupuesto digital" },
+  { to: "/seguimiento", label: "Seguimiento" },
+  { to: "/opiniones", label: "Opiniones" },
+] as const;

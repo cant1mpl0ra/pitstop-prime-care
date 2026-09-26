@@ -4,3 +4,4 @@
 - [x] Integrar y validar la reserva real con el endpoint existente.
 - [x] Crear prototipos visuales de presupuesto, seguimiento, cuenta y admin.
 - [x] Validar diseño responsive, accesibilidad y metadatos.
+- [x] Completar la navegación superior y añadir la página Sobre nosotros.
