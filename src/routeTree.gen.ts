@@ -19,6 +19,7 @@ import { Route as PedirCitaRouteImport } from './routes/pedir-cita'
 import { Route as PresupuestoDigitalRouteImport } from './routes/presupuesto-digital'
 import { Route as SeguimientoRouteImport } from './routes/seguimiento'
 import { Route as ServiciosRouteImport } from './routes/servicios'
+import { Route as SobreNosotrosRouteImport } from './routes/sobre-nosotros'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -70,6 +71,11 @@ const ServiciosRoute = ServiciosRouteImport.update({
   path: '/servicios',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SobreNosotrosRoute = SobreNosotrosRouteImport.update({
+  id: '/sobre-nosotros',
+  path: '/sobre-nosotros',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -82,6 +88,7 @@ export interface FileRoutesByFullPath {
   '/presupuesto-digital': typeof PresupuestoDigitalRoute
   '/seguimiento': typeof SeguimientoRoute
   '/servicios': typeof ServiciosRoute
+  '/sobre-nosotros': typeof SobreNosotrosRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -94,6 +101,7 @@ export interface FileRoutesByTo {
   '/presupuesto-digital': typeof PresupuestoDigitalRoute
   '/seguimiento': typeof SeguimientoRoute
   '/servicios': typeof ServiciosRoute
+  '/sobre-nosotros': typeof SobreNosotrosRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -107,6 +115,7 @@ export interface FileRoutesById {
   '/presupuesto-digital': typeof PresupuestoDigitalRoute
   '/seguimiento': typeof SeguimientoRoute
   '/servicios': typeof ServiciosRoute
+  '/sobre-nosotros': typeof SobreNosotrosRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -121,6 +130,7 @@ export interface FileRouteTypes {
     | '/presupuesto-digital'
     | '/seguimiento'
     | '/servicios'
+    | '/sobre-nosotros'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -133,6 +143,7 @@ export interface FileRouteTypes {
     | '/presupuesto-digital'
     | '/seguimiento'
     | '/servicios'
+    | '/sobre-nosotros'
   id:
     | '__root__'
     | '/'
@@ -145,6 +156,7 @@ export interface FileRouteTypes {
     | '/presupuesto-digital'
     | '/seguimiento'
     | '/servicios'
+    | '/sobre-nosotros'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -158,6 +170,7 @@ export interface RootRouteChildren {
   PresupuestoDigitalRoute: typeof PresupuestoDigitalRoute
   SeguimientoRoute: typeof SeguimientoRoute
   ServiciosRoute: typeof ServiciosRoute
+  SobreNosotrosRoute: typeof SobreNosotrosRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -232,6 +245,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ServiciosRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/sobre-nosotros': {
+      id: '/sobre-nosotros'
+      path: '/sobre-nosotros'
+      fullPath: '/sobre-nosotros'
+      preLoaderRoute: typeof SobreNosotrosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -246,6 +266,7 @@ const rootRouteChildren: RootRouteChildren = {
   PresupuestoDigitalRoute: PresupuestoDigitalRoute,
   SeguimientoRoute: SeguimientoRoute,
   ServiciosRoute: ServiciosRoute,
+  SobreNosotrosRoute: SobreNosotrosRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
