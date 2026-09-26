@@ -10,33 +10,154 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AdminRouteImport } from './routes/admin'
+import { Route as ComoTrabajamosRouteImport } from './routes/como-trabajamos'
+import { Route as ContactoRouteImport } from './routes/contacto'
+import { Route as MiCuentaRouteImport } from './routes/mi-cuenta'
+import { Route as OpinionesRouteImport } from './routes/opiniones'
+import { Route as PedirCitaRouteImport } from './routes/pedir-cita'
+import { Route as PresupuestoDigitalRouteImport } from './routes/presupuesto-digital'
+import { Route as SeguimientoRouteImport } from './routes/seguimiento'
+import { Route as ServiciosRouteImport } from './routes/servicios'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ComoTrabajamosRoute = ComoTrabajamosRouteImport.update({
+  id: '/como-trabajamos',
+  path: '/como-trabajamos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactoRoute = ContactoRouteImport.update({
+  id: '/contacto',
+  path: '/contacto',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MiCuentaRoute = MiCuentaRouteImport.update({
+  id: '/mi-cuenta',
+  path: '/mi-cuenta',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OpinionesRoute = OpinionesRouteImport.update({
+  id: '/opiniones',
+  path: '/opiniones',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PedirCitaRoute = PedirCitaRouteImport.update({
+  id: '/pedir-cita',
+  path: '/pedir-cita',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PresupuestoDigitalRoute = PresupuestoDigitalRouteImport.update({
+  id: '/presupuesto-digital',
+  path: '/presupuesto-digital',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SeguimientoRoute = SeguimientoRouteImport.update({
+  id: '/seguimiento',
+  path: '/seguimiento',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ServiciosRoute = ServiciosRouteImport.update({
+  id: '/servicios',
+  path: '/servicios',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
+  '/como-trabajamos': typeof ComoTrabajamosRoute
+  '/contacto': typeof ContactoRoute
+  '/mi-cuenta': typeof MiCuentaRoute
+  '/opiniones': typeof OpinionesRoute
+  '/pedir-cita': typeof PedirCitaRoute
+  '/presupuesto-digital': typeof PresupuestoDigitalRoute
+  '/seguimiento': typeof SeguimientoRoute
+  '/servicios': typeof ServiciosRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
+  '/como-trabajamos': typeof ComoTrabajamosRoute
+  '/contacto': typeof ContactoRoute
+  '/mi-cuenta': typeof MiCuentaRoute
+  '/opiniones': typeof OpinionesRoute
+  '/pedir-cita': typeof PedirCitaRoute
+  '/presupuesto-digital': typeof PresupuestoDigitalRoute
+  '/seguimiento': typeof SeguimientoRoute
+  '/servicios': typeof ServiciosRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
+  '/como-trabajamos': typeof ComoTrabajamosRoute
+  '/contacto': typeof ContactoRoute
+  '/mi-cuenta': typeof MiCuentaRoute
+  '/opiniones': typeof OpinionesRoute
+  '/pedir-cita': typeof PedirCitaRoute
+  '/presupuesto-digital': typeof PresupuestoDigitalRoute
+  '/seguimiento': typeof SeguimientoRoute
+  '/servicios': typeof ServiciosRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/admin'
+    | '/como-trabajamos'
+    | '/contacto'
+    | '/mi-cuenta'
+    | '/opiniones'
+    | '/pedir-cita'
+    | '/presupuesto-digital'
+    | '/seguimiento'
+    | '/servicios'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/admin'
+    | '/como-trabajamos'
+    | '/contacto'
+    | '/mi-cuenta'
+    | '/opiniones'
+    | '/pedir-cita'
+    | '/presupuesto-digital'
+    | '/seguimiento'
+    | '/servicios'
+  id:
+    | '__root__'
+    | '/'
+    | '/admin'
+    | '/como-trabajamos'
+    | '/contacto'
+    | '/mi-cuenta'
+    | '/opiniones'
+    | '/pedir-cita'
+    | '/presupuesto-digital'
+    | '/seguimiento'
+    | '/servicios'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminRoute: typeof AdminRoute
+  ComoTrabajamosRoute: typeof ComoTrabajamosRoute
+  ContactoRoute: typeof ContactoRoute
+  MiCuentaRoute: typeof MiCuentaRoute
+  OpinionesRoute: typeof OpinionesRoute
+  PedirCitaRoute: typeof PedirCitaRoute
+  PresupuestoDigitalRoute: typeof PresupuestoDigitalRoute
+  SeguimientoRoute: typeof SeguimientoRoute
+  ServiciosRoute: typeof ServiciosRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +169,83 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/como-trabajamos': {
+      id: '/como-trabajamos'
+      path: '/como-trabajamos'
+      fullPath: '/como-trabajamos'
+      preLoaderRoute: typeof ComoTrabajamosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contacto': {
+      id: '/contacto'
+      path: '/contacto'
+      fullPath: '/contacto'
+      preLoaderRoute: typeof ContactoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mi-cuenta': {
+      id: '/mi-cuenta'
+      path: '/mi-cuenta'
+      fullPath: '/mi-cuenta'
+      preLoaderRoute: typeof MiCuentaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/opiniones': {
+      id: '/opiniones'
+      path: '/opiniones'
+      fullPath: '/opiniones'
+      preLoaderRoute: typeof OpinionesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pedir-cita': {
+      id: '/pedir-cita'
+      path: '/pedir-cita'
+      fullPath: '/pedir-cita'
+      preLoaderRoute: typeof PedirCitaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/presupuesto-digital': {
+      id: '/presupuesto-digital'
+      path: '/presupuesto-digital'
+      fullPath: '/presupuesto-digital'
+      preLoaderRoute: typeof PresupuestoDigitalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/seguimiento': {
+      id: '/seguimiento'
+      path: '/seguimiento'
+      fullPath: '/seguimiento'
+      preLoaderRoute: typeof SeguimientoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/servicios': {
+      id: '/servicios'
+      path: '/servicios'
+      fullPath: '/servicios'
+      preLoaderRoute: typeof ServiciosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminRoute: AdminRoute,
+  ComoTrabajamosRoute: ComoTrabajamosRoute,
+  ContactoRoute: ContactoRoute,
+  MiCuentaRoute: MiCuentaRoute,
+  OpinionesRoute: OpinionesRoute,
+  PedirCitaRoute: PedirCitaRoute,
+  PresupuestoDigitalRoute: PresupuestoDigitalRoute,
+  SeguimientoRoute: SeguimientoRoute,
+  ServiciosRoute: ServiciosRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

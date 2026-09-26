@@ -8,3 +8,6 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- Centralizar contenido comercial editable en `src/content/site.ts`; facilita conectar PIT STOP ADMIN sin acoplar textos a las páginas.
+- Canalizar el endpoint externo de citas mediante funciones de servidor validadas; estabiliza el contrato y evita exponer detalles del proveedor.
