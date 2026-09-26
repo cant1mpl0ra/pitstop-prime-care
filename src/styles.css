@@ -176,5 +176,10 @@
 @utility device-shell { width:min(100%,19.5rem);border:.45rem solid var(--foreground);border-radius:2rem;background:var(--background);box-shadow:0 30px 80px oklch(0 0 0 / .4);overflow:hidden; }
 @utility device-top { display:grid;grid-template-columns:1fr auto;align-items:center;padding:.8rem 1.1rem;font-size:.6rem;color:var(--muted-foreground); }
 @utility device-pill { width:4rem;height:1rem;border-radius:999px;background:var(--foreground); }
+@utility booking-section { display:grid;grid-template-columns:auto minmax(0,1fr);gap:1rem;border-top:1px solid var(--border);padding-top:2rem; }
+@utility booking-number { display:grid;width:2.5rem;height:2.5rem;place-items:center;background:var(--primary);font-family:monospace;font-size:.75rem;font-weight:700;color:var(--primary-foreground); }
+@utility booking-title { font-family:var(--font-display);font-size:1.75rem;font-weight:700;text-transform:uppercase; }
+@utility booking-copy { margin-top:.25rem;font-size:.8rem;line-height:1.4;color:var(--muted-foreground); }
+@utility form-control { height:3rem;width:100%;border:1px solid var(--input);background:transparent;padding-inline:.75rem;font-size:.875rem;color:var(--foreground);outline:none;&:focus{border-color:var(--ring);} }
 
 @media (prefers-reduced-motion: no-preference) { .device-shell { animation: float 6s ease-in-out infinite; } @keyframes float { 50% { transform: translateY(-10px); } } }
