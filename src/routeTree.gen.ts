@@ -10,33 +10,89 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ComoTrabajamosRouteImport } from './routes/como-trabajamos'
+import { Route as PresupuestoDigitalRouteImport } from './routes/presupuesto-digital'
+import { Route as SeguimientoRouteImport } from './routes/seguimiento'
+import { Route as ServiciosRouteImport } from './routes/servicios'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ComoTrabajamosRoute = ComoTrabajamosRouteImport.update({
+  id: '/como-trabajamos',
+  path: '/como-trabajamos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PresupuestoDigitalRoute = PresupuestoDigitalRouteImport.update({
+  id: '/presupuesto-digital',
+  path: '/presupuesto-digital',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SeguimientoRoute = SeguimientoRouteImport.update({
+  id: '/seguimiento',
+  path: '/seguimiento',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ServiciosRoute = ServiciosRouteImport.update({
+  id: '/servicios',
+  path: '/servicios',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/como-trabajamos': typeof ComoTrabajamosRoute
+  '/presupuesto-digital': typeof PresupuestoDigitalRoute
+  '/seguimiento': typeof SeguimientoRoute
+  '/servicios': typeof ServiciosRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/como-trabajamos': typeof ComoTrabajamosRoute
+  '/presupuesto-digital': typeof PresupuestoDigitalRoute
+  '/seguimiento': typeof SeguimientoRoute
+  '/servicios': typeof ServiciosRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/como-trabajamos': typeof ComoTrabajamosRoute
+  '/presupuesto-digital': typeof PresupuestoDigitalRoute
+  '/seguimiento': typeof SeguimientoRoute
+  '/servicios': typeof ServiciosRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/como-trabajamos'
+    | '/presupuesto-digital'
+    | '/seguimiento'
+    | '/servicios'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/como-trabajamos'
+    | '/presupuesto-digital'
+    | '/seguimiento'
+    | '/servicios'
+  id:
+    | '__root__'
+    | '/'
+    | '/como-trabajamos'
+    | '/presupuesto-digital'
+    | '/seguimiento'
+    | '/servicios'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ComoTrabajamosRoute: typeof ComoTrabajamosRoute
+  PresupuestoDigitalRoute: typeof PresupuestoDigitalRoute
+  SeguimientoRoute: typeof SeguimientoRoute
+  ServiciosRoute: typeof ServiciosRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +104,43 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/como-trabajamos': {
+      id: '/como-trabajamos'
+      path: '/como-trabajamos'
+      fullPath: '/como-trabajamos'
+      preLoaderRoute: typeof ComoTrabajamosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/presupuesto-digital': {
+      id: '/presupuesto-digital'
+      path: '/presupuesto-digital'
+      fullPath: '/presupuesto-digital'
+      preLoaderRoute: typeof PresupuestoDigitalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/seguimiento': {
+      id: '/seguimiento'
+      path: '/seguimiento'
+      fullPath: '/seguimiento'
+      preLoaderRoute: typeof SeguimientoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/servicios': {
+      id: '/servicios'
+      path: '/servicios'
+      fullPath: '/servicios'
+      preLoaderRoute: typeof ServiciosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ComoTrabajamosRoute: ComoTrabajamosRoute,
+  PresupuestoDigitalRoute: PresupuestoDigitalRoute,
+  SeguimientoRoute: SeguimientoRoute,
+  ServiciosRoute: ServiciosRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
