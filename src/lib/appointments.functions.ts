@@ -9,6 +9,7 @@ const bookingSchema = z.object({
   full_name: z.string().trim().min(2).max(100), phone: z.string().trim().min(6).max(30),
   email: z.string().trim().email().max(255), plate: z.string().trim().min(3).max(15).regex(/^[A-Za-z0-9 -]+$/),
   vehicle_model: z.string().trim().max(100).optional(), service_code: z.enum(codes),
+  current_km: z.number().int().min(0).max(2_000_000),
   starts_at: z.string().datetime({ offset: true }), notes: z.string().trim().max(1000).optional(),
 });
 
