@@ -1,38 +1,28 @@
-# PIT STOP MOTOR — primera versión
+# Rediseño visual PIT STOP MOTOR
 
 ## Objetivo
-Crear una web corporativa premium y técnica para convertir visitas en citas, con contenido en español, transparencia digital y una experiencia impecable en móvil y escritorio.
+Transformar toda la web en una identidad automoción premium, clara y editorial: blanco roto, gris técnico, antracita y azul corporativo, con menos iconos y tarjetas. Mantener intactas la reserva real, el kilometraje obligatorio, el endpoint existente y los prototipos privados.
 
-## Páginas y navegación
-- Inicio editorial con presentación, confianza, servicios, flujo de trabajo, presupuesto digital, seguimiento, motivos para elegir el taller, opiniones de demostración y contacto.
-- Página de servicios con los ocho servicios reservables y accesos directos a cita.
-- Página “Cómo trabajamos” con el proceso completo y foco en autorización previa.
-- Página de presupuesto digital con mockup móvil y explicación detallada.
-- Página de seguimiento con prototipo visual de estados del vehículo.
-- Página de opiniones, marcadas inequívocamente como ejemplos de diseño.
-- Página de contacto con los horarios facilitados y datos editables claramente señalados.
-- Página “Pedir cita” conectada al endpoint indicado, sin cuenta obligatoria.
-- Página “Mi cuenta” como acceso visual al futuro seguimiento, sin fingir autenticación.
-- Ruta `/admin` como prototipo privado no operativo y excluido de indexación.
+## Cambios principales
+- Renovar el sistema visual global: paleta clara, tipografía corporativa más sobria, espaciado amplio, líneas finas, botones y formularios consistentes.
+- Preparar una zona de marca neutra para insertar el futuro archivo oficial “PIT STOP motors”, sin redibujar ni inventar el logotipo.
+- Simplificar la cabecera para que funcione sin saltos a 1280 px: Servicios, Cómo trabajamos, Pedir cita y Mi cuenta, más CTA destacado.
+- Reconstruir la portada con la composición y textos indicados: presentación editorial, cuatro argumentos de confianza, seis familias de servicio, bloque antracita, proceso numerado, presupuesto digital, seguimiento, razones concretas y contacto.
+- Rediseñar los mockups de presupuesto y seguimiento con menos iconos, matrícula y kilometraje, acciones “Ver qué se cambia” y “Ver mi coche”, total y autorización.
+- Aplicar el mismo lenguaje visual a Servicios, Cómo trabajamos, Presupuesto digital, Seguimiento, Sobre nosotros, Opiniones, Contacto, Pedir cita, Mi cuenta y el prototipo privado de administración.
+- Mantener datos de contacto y reseñas claramente identificados como pendientes o demostración, sin inventar información.
 
-## Reserva real
-- Formulario por pasos: servicio, fecha, hueco disponible y datos del cliente/vehículo.
-- Matrícula obligatoria; modelo y notas opcionales.
-- Consulta GET con fecha y código de servicio; creación POST JSON.
-- Validación en el navegador y en una función intermedia del servidor, estados de carga, éxito, error y hueco ocupado.
-- No se mostrarán datos de otros clientes ni servicios no permitidos.
+## Reserva y contenido
+- No modificar la función de servidor ni el endpoint de citas.
+- Conservar servicios reservables y códigos actuales; la portada agrupará la oferta en seis familias editoriales sin eliminar opciones del formulario.
+- Mantener matrícula y kilómetros como obligatorios, con enteros entre 0 y 2.000.000 y envío como `current_km`.
+- Mantener el contenido comercial y la navegación centralizados para la futura conexión con PIT STOP ADMIN.
 
-## Dirección visual
-- Negro/antracita mate, blanco técnico, rojo como acción y azul como información.
-- Tipografía sans contundente, líneas de precisión, fotografía automoción oscura y mockups de producto.
-- Animaciones discretas, foco visible, alto contraste y adaptación móvil completa.
+## Validación
+- Comprobar la portada, cabecera y formulario en escritorio a 1280 px y en móvil.
+- Confirmar que el menú no salta de línea, no hay desbordamientos y todas las rutas mantienen una jerarquía coherente.
+- Verificar que una reserva no puede enviarse sin kilometraje, sin crear una cita ficticia.
+- Revisar errores de compilación y ejecución, además de los metadatos SEO existentes.
 
-## Contenido y edición futura
-- Contenido, servicios, horarios, datos de contacto y navegación centralizados para facilitar un futuro PIT STOP ADMIN.
-- Teléfono, email, dirección y WhatsApp permanecerán como campos editables señalados, sin inventar datos.
-
-## Detalles técnicos
-- Componentes reutilizables y páginas independientes para SEO y enlaces compartibles.
-- Metadatos únicos por página; `/admin` y “Mi cuenta” no se indexarán.
-- La reserva se canalizará desde el servidor para validar y normalizar las respuestas del endpoint existente.
-- Se comprobarán los recorridos principales en escritorio y móvil.
+## Suposición
+La fotografía actual se conservará como recurso temporal, con un tratamiento más claro y una estructura preparada para sustituirla por la foto real del taller reformado.
