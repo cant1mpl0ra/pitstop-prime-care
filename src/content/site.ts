@@ -22,16 +22,28 @@ export const editableContact = {
 export const processSteps = ["Reserva", "Recepción", "Diagnóstico", "Presupuesto digital", "Autorización", "Reparación", "Control de calidad", "Vehículo listo"];
 export const trackingSteps = ["Vehículo recibido", "Diagnóstico", "Presupuesto enviado", "Autorizado", "Reparación", "Control de calidad", "Listo para recoger"];
 
+export const serviceFamilies = [
+  { name: "Mantenimiento", short: "Aceite, filtros y revisiones para que el coche siga haciendo bien su trabajo.", bookingCode: "full_service" as ServiceCode },
+  { name: "Frenos", short: "Comprobación, desgaste y mantenimiento del sistema de frenado.", bookingCode: "brakes" as ServiceCode },
+  { name: "Neumáticos", short: "Estado, presión, desgaste y sustitución con criterio.", bookingCode: "tyres" as ServiceCode },
+  { name: "Diagnosis", short: "Localizamos el origen de la incidencia antes de proponer una reparación.", bookingCode: "diagnosis" as ServiceCode },
+  { name: "Suspensión", short: "Revisamos estabilidad, confort y respuesta del vehículo.", bookingCode: "unknown" as ServiceCode },
+  { name: "Aire acondicionado", short: "Climatización eficiente y fiable durante todo el año.", bookingCode: "aircon" as ServiceCode },
+] as const;
+
+export const homeProcessSteps = ["Reserva", "Recibimos tu vehículo", "Diagnóstico", "Tú decides", "Reparamos", "Control final", "Listo"] as const;
+
 export const primaryNavigation = [
-  { to: "/", label: "Inicio" },
-  { to: "/sobre-nosotros", label: "Sobre nosotros" },
   { to: "/servicios", label: "Servicios" },
   { to: "/como-trabajamos", label: "Cómo trabajamos" },
-  { to: "/contacto", label: "Contacto" },
+  { to: "/pedir-cita", label: "Pedir cita" },
+  { to: "/mi-cuenta", label: "Mi cuenta" },
 ] as const;
 
 export const secondaryNavigation = [
+  { to: "/sobre-nosotros", label: "Sobre nosotros" },
   { to: "/presupuesto-digital", label: "Presupuesto digital" },
   { to: "/seguimiento", label: "Seguimiento" },
   { to: "/opiniones", label: "Opiniones" },
+  { to: "/contacto", label: "Contacto" },
 ] as const;
