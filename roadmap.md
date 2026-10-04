@@ -5,3 +5,5 @@
 - [x] Crear prototipos visuales de presupuesto, seguimiento, cuenta y admin.
 - [x] Validar diseño responsive, accesibilidad y metadatos.
 - [x] Completar la navegación superior y añadir la página Sobre nosotros.
+- [ ] Aplicar el rediseño visual v2 en toda la web sin alterar la reserva real.
+- [ ] Validar el rediseño y el kilometraje obligatorio en escritorio y móvil.
