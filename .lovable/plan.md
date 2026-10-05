@@ -1,28 +1,33 @@
-# Rediseño visual PIT STOP MOTOR
+# Ampliación comercial v2 de PIT STOP motors
 
 ## Objetivo
-Transformar toda la web en una identidad automoción premium, clara y editorial: blanco roto, gris técnico, antracita y azul corporativo, con menos iconos y tarjetas. Mantener intactas la reserva real, el kilometraje obligatorio, el endpoint existente y los prototipos privados.
+Completar la web v2 con una historia de marca honesta, una oferta comercial editable y más protagonismo para neumáticos, manteniendo exactamente el lenguaje visual claro, sobrio y editorial ya aprobado. La reserva real, matrícula, kilometraje, endpoint y prototipos privados no cambiarán.
 
-## Cambios principales
-- Renovar el sistema visual global: paleta clara, tipografía corporativa más sobria, espaciado amplio, líneas finas, botones y formularios consistentes.
-- Preparar una zona de marca neutra para insertar el futuro archivo oficial “PIT STOP motors”, sin redibujar ni inventar el logotipo.
-- Simplificar la cabecera para que funcione sin saltos a 1280 px: Servicios, Cómo trabajamos, Pedir cita y Mi cuenta, más CTA destacado.
-- Reconstruir la portada con la composición y textos indicados: presentación editorial, cuatro argumentos de confianza, seis familias de servicio, bloque antracita, proceso numerado, presupuesto digital, seguimiento, razones concretas y contacto.
-- Rediseñar los mockups de presupuesto y seguimiento con menos iconos, matrícula y kilometraje, acciones “Ver qué se cambia” y “Ver mi coche”, total y autorización.
-- Aplicar el mismo lenguaje visual a Servicios, Cómo trabajamos, Presupuesto digital, Seguimiento, Sobre nosotros, Opiniones, Contacto, Pedir cita, Mi cuenta y el prototipo privado de administración.
-- Mantener datos de contacto y reseñas claramente identificados como pendientes o demostración, sin inventar información.
+## Páginas y navegación
+- Actualizar la navegación principal a: Servicios, Neumáticos, Ofertas, Cómo trabajamos, Sobre nosotros y Mi cuenta, con PEDIR CITA como acción separada.
+- Crear `/neumaticos` como experiencia editorial preparada para futura búsqueda por matrícula o por medidas, sin consultar disponibilidad ni mostrar precios.
+- Crear `/ofertas` con estados Activas, Próximamente y Finalizadas, alimentados desde contenido local editable y sin campañas ficticias.
+- Reconstruir `/sobre-nosotros` con el relato indicado: taller de nueva creación, mecánica rápida, neumáticos, valores y cierre de marca.
+- Añadir “El próximo PIT STOP” con Lleida como ubicación actual y una segunda instalación claramente marcada “En planificación”.
 
-## Reserva y contenido
-- No modificar la función de servidor ni el endpoint de citas.
-- Conservar servicios reservables y códigos actuales; la portada agrupará la oferta en seis familias editoriales sin eliminar opciones del formulario.
-- Mantener matrícula y kilómetros como obligatorios, con enteros entre 0 y 2.000.000 y envío como `current_km`.
-- Mantener el contenido comercial y la navegación centralizados para la futura conexión con PIT STOP ADMIN.
+## Contenido comercial
+- Centralizar en el contenido comercial la ficha futura de cada oferta: título, imagen, descripción, fechas, condiciones, CTA y estado activa/inactiva.
+- Incorporar tiempos siempre marcados como orientativos para batería, pastillas, pastillas + discos y amortiguadores delanteros.
+- Reforzar el recorrido digital: ver necesidades, fotografías, presupuesto, autorización y seguimiento.
+- Mantener los textos de contacto, reseñas y promociones como pendientes o demostración cuando no haya información real.
+
+## Portada y páginas interiores
+- Insertar después de Servicios un acceso protagonista a Neumáticos y un bloque de Ofertas PIT STOP con un máximo de tres campañas pendientes.
+- Añadir teasers breves de Sobre nosotros y crecimiento futuro sin alargar en exceso la portada.
+- Terminar de unificar Servicios, Cómo trabajamos, Presupuesto digital, Seguimiento, Opiniones, Contacto, Pedir cita, Mi cuenta y Admin con el estilo v2, reduciendo iconos y tarjetas.
+- Mantener fotografía temporal y espacios preparados para los futuros archivos reales de taller, fachada, promociones y neumáticos.
 
 ## Validación
-- Comprobar la portada, cabecera y formulario en escritorio a 1280 px y en móvil.
-- Confirmar que el menú no salta de línea, no hay desbordamientos y todas las rutas mantienen una jerarquía coherente.
-- Verificar que una reserva no puede enviarse sin kilometraje, sin crear una cita ficticia.
-- Revisar errores de compilación y ejecución, además de los metadatos SEO existentes.
+- Revisar cada ruta y sus metadatos, incluida la nueva navegación.
+- Probar a 1280 px y en móvil: menú en una línea, jerarquía, contraste, espacios y ausencia de desbordamientos.
+- Confirmar que la reserva sigue mostrando disponibilidad y que no puede enviarse sin kilómetros válidos, sin crear una cita ficticia.
+- Comprobar compilación, ejecución, consola y enlaces.
 
-## Suposición
-La fotografía actual se conservará como recurso temporal, con un tratamiento más claro y una estructura preparada para sustituirla por la foto real del taller reformado.
+## Suposiciones
+- La búsqueda de neumáticos será un formulario visual no conectado: permitirá elegir matrícula o medidas y llevará a solicitar precio o pedir cita.
+- Se mostrarán tres fichas de oferta claramente rotuladas como próximas campañas, sin precios, porcentajes, fechas ni condiciones inventadas.
