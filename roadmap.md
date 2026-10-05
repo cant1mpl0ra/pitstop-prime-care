@@ -7,3 +7,6 @@
 - [x] Completar la navegación superior y añadir la página Sobre nosotros.
 - [ ] Aplicar el rediseño visual v2 en toda la web sin alterar la reserva real.
 - [ ] Validar el rediseño y el kilometraje obligatorio en escritorio y móvil.
+- [ ] Añadir Sobre nosotros, crecimiento planificado, Ofertas y experiencia de Neumáticos.
+- [ ] Incorporar tiempos orientativos y nuevos teasers comerciales en la portada.
+- [ ] Validar las nuevas rutas y el menú completo a 1280 px y en móvil.
