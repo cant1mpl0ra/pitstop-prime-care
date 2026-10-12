@@ -9,6 +9,7 @@
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
 
-- Centralizar contenido comercial editable en `src/content/site.ts`; facilita conectar PIT STOP ADMIN sin acoplar textos a las páginas.
-- Canalizar el endpoint externo de citas mediante funciones de servidor validadas; estabiliza el contrato y evita exponer detalles del proveedor.
-- Mantener la navegación pública principal centralizada con el contenido comercial; evita divergencias entre cabecera y pie.
+- Keep editable commercial content, offers, location stages, indicative times, and public navigation in `src/content/site.ts`; this allows future PIT STOP ADMIN integration without coupling copy to pages.
+- Route the external appointment endpoint through validated server functions; this stabilizes the provider contract and keeps provider details out of the browser.
+- Share offer status selection and presentation between home and the offers page; this prevents inactive or expired campaigns from appearing as bookable offers.
+- Keep tyre enquiry as an explicitly unconnected client-side preview until a real provider is integrated; never imply a stock lookup or request submission occurred.
