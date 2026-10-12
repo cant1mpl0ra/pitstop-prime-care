@@ -14,6 +14,8 @@ import { Route as AdminRouteImport } from './routes/admin'
 import { Route as ComoTrabajamosRouteImport } from './routes/como-trabajamos'
 import { Route as ContactoRouteImport } from './routes/contacto'
 import { Route as MiCuentaRouteImport } from './routes/mi-cuenta'
+import { Route as NeumaticosRouteImport } from './routes/neumaticos'
+import { Route as OfertasRouteImport } from './routes/ofertas'
 import { Route as OpinionesRouteImport } from './routes/opiniones'
 import { Route as PedirCitaRouteImport } from './routes/pedir-cita'
 import { Route as PresupuestoDigitalRouteImport } from './routes/presupuesto-digital'
@@ -44,6 +46,16 @@ const ContactoRoute = ContactoRouteImport.update({
 const MiCuentaRoute = MiCuentaRouteImport.update({
   id: '/mi-cuenta',
   path: '/mi-cuenta',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NeumaticosRoute = NeumaticosRouteImport.update({
+  id: '/neumaticos',
+  path: '/neumaticos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OfertasRoute = OfertasRouteImport.update({
+  id: '/ofertas',
+  path: '/ofertas',
   getParentRoute: () => rootRouteImport,
 } as any)
 const OpinionesRoute = OpinionesRouteImport.update({
@@ -83,6 +95,8 @@ export interface FileRoutesByFullPath {
   '/como-trabajamos': typeof ComoTrabajamosRoute
   '/contacto': typeof ContactoRoute
   '/mi-cuenta': typeof MiCuentaRoute
+  '/neumaticos': typeof NeumaticosRoute
+  '/ofertas': typeof OfertasRoute
   '/opiniones': typeof OpinionesRoute
   '/pedir-cita': typeof PedirCitaRoute
   '/presupuesto-digital': typeof PresupuestoDigitalRoute
@@ -96,6 +110,8 @@ export interface FileRoutesByTo {
   '/como-trabajamos': typeof ComoTrabajamosRoute
   '/contacto': typeof ContactoRoute
   '/mi-cuenta': typeof MiCuentaRoute
+  '/neumaticos': typeof NeumaticosRoute
+  '/ofertas': typeof OfertasRoute
   '/opiniones': typeof OpinionesRoute
   '/pedir-cita': typeof PedirCitaRoute
   '/presupuesto-digital': typeof PresupuestoDigitalRoute
@@ -110,6 +126,8 @@ export interface FileRoutesById {
   '/como-trabajamos': typeof ComoTrabajamosRoute
   '/contacto': typeof ContactoRoute
   '/mi-cuenta': typeof MiCuentaRoute
+  '/neumaticos': typeof NeumaticosRoute
+  '/ofertas': typeof OfertasRoute
   '/opiniones': typeof OpinionesRoute
   '/pedir-cita': typeof PedirCitaRoute
   '/presupuesto-digital': typeof PresupuestoDigitalRoute
@@ -125,6 +143,8 @@ export interface FileRouteTypes {
     | '/como-trabajamos'
     | '/contacto'
     | '/mi-cuenta'
+    | '/neumaticos'
+    | '/ofertas'
     | '/opiniones'
     | '/pedir-cita'
     | '/presupuesto-digital'
@@ -138,6 +158,8 @@ export interface FileRouteTypes {
     | '/como-trabajamos'
     | '/contacto'
     | '/mi-cuenta'
+    | '/neumaticos'
+    | '/ofertas'
     | '/opiniones'
     | '/pedir-cita'
     | '/presupuesto-digital'
@@ -151,6 +173,8 @@ export interface FileRouteTypes {
     | '/como-trabajamos'
     | '/contacto'
     | '/mi-cuenta'
+    | '/neumaticos'
+    | '/ofertas'
     | '/opiniones'
     | '/pedir-cita'
     | '/presupuesto-digital'
@@ -165,6 +189,8 @@ export interface RootRouteChildren {
   ComoTrabajamosRoute: typeof ComoTrabajamosRoute
   ContactoRoute: typeof ContactoRoute
   MiCuentaRoute: typeof MiCuentaRoute
+  NeumaticosRoute: typeof NeumaticosRoute
+  OfertasRoute: typeof OfertasRoute
   OpinionesRoute: typeof OpinionesRoute
   PedirCitaRoute: typeof PedirCitaRoute
   PresupuestoDigitalRoute: typeof PresupuestoDigitalRoute
@@ -208,6 +234,20 @@ declare module '@tanstack/react-router' {
       path: '/mi-cuenta'
       fullPath: '/mi-cuenta'
       preLoaderRoute: typeof MiCuentaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/neumaticos': {
+      id: '/neumaticos'
+      path: '/neumaticos'
+      fullPath: '/neumaticos'
+      preLoaderRoute: typeof NeumaticosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ofertas': {
+      id: '/ofertas'
+      path: '/ofertas'
+      fullPath: '/ofertas'
+      preLoaderRoute: typeof OfertasRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/opiniones': {
@@ -261,6 +301,8 @@ const rootRouteChildren: RootRouteChildren = {
   ComoTrabajamosRoute: ComoTrabajamosRoute,
   ContactoRoute: ContactoRoute,
   MiCuentaRoute: MiCuentaRoute,
+  NeumaticosRoute: NeumaticosRoute,
+  OfertasRoute: OfertasRoute,
   OpinionesRoute: OpinionesRoute,
   PedirCitaRoute: PedirCitaRoute,
   PresupuestoDigitalRoute: PresupuestoDigitalRoute,
