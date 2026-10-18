@@ -1,12 +1,16 @@
 # Roadmap
+- [x] Identificar funciones reales de cliente sin modificar la web pública.
+- [x] Añadir navegación de cliente y Ofertas con estado vacío, conservando la identidad compartida.
+- [x] Comprobar pantallas de cliente, ofertas y validación de kilómetros en escritorio y móvil.
+- [ ] Verificar reserva completa: bloqueada por el error actual de consulta de agenda; no crear citas ficticias.
 - [x] Diseñar y construir la web corporativa premium completa.
 - [x] Crear páginas independientes y navegación compartida.
 - [x] Integrar y validar la reserva real con el endpoint existente.
 - [x] Crear prototipos visuales de presupuesto, seguimiento, cuenta y admin.
 - [x] Validar diseño responsive, accesibilidad y metadatos.
 - [x] Completar la navegación superior y añadir la página Sobre nosotros.
-- [ ] Aplicar el rediseño visual v2 en toda la web sin alterar la reserva real.
-- [ ] Validar el rediseño y el kilometraje obligatorio en escritorio y móvil.
-- [ ] Añadir Sobre nosotros, crecimiento planificado, Ofertas y experiencia de Neumáticos.
-- [ ] Incorporar tiempos orientativos y nuevos teasers comerciales en la portada.
-- [ ] Validar las nuevas rutas y el menú completo a 1280 px y en móvil.
+- [x] Conservar la web v2 publicada como referencia exacta, sin nuevos rediseños públicos (corrección del encargo).
+- [x] Validar pantallas de cliente y kilometraje obligatorio en escritorio y móvil.
+- [x] Añadir Sobre nosotros, crecimiento planificado, Ofertas y experiencia de Neumáticos.
+- [x] Incorporar tiempos orientativos y nuevos teasers comerciales en la portada.
+- [x] Validar navegación de clientes y menú a 1280 px y en móvil.
