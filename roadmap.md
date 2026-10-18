@@ -1,4 +1,7 @@
 # Roadmap
+- [ ] Identificar funciones reales de cliente sin modificar la web pública.
+- [ ] Añadir navegación de cliente y Ofertas con estado vacío, conservando la identidad compartida.
+- [ ] Comprobar pantallas de cliente, ofertas y reserva en escritorio y móvil.
 - [x] Diseñar y construir la web corporativa premium completa.
 - [x] Crear páginas independientes y navegación compartida.
 - [x] Integrar y validar la reserva real con el endpoint existente.
