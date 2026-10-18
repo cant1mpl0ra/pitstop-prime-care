@@ -1,3 +1,4 @@
+/// <reference types="bun" />
 import { describe, expect, test } from "bun:test";
 import { getClientOffers, getHomeOffers, getOfferStatus, indicativeTimes, offers, workshopLocations, type Offer } from "./site";
 
