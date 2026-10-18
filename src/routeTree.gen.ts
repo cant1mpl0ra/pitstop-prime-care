@@ -22,6 +22,7 @@ import { Route as PresupuestoDigitalRouteImport } from './routes/presupuesto-dig
 import { Route as SeguimientoRouteImport } from './routes/seguimiento'
 import { Route as ServiciosRouteImport } from './routes/servicios'
 import { Route as SobreNosotrosRouteImport } from './routes/sobre-nosotros'
+import { Route as MiCuentaOfertasRouteImport } from './routes/mi-cuenta_.ofertas'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -88,6 +89,11 @@ const SobreNosotrosRoute = SobreNosotrosRouteImport.update({
   path: '/sobre-nosotros',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MiCuentaOfertasRoute = MiCuentaOfertasRouteImport.update({
+  id: '/mi-cuenta_/ofertas',
+  path: '/mi-cuenta/ofertas',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -103,6 +109,7 @@ export interface FileRoutesByFullPath {
   '/seguimiento': typeof SeguimientoRoute
   '/servicios': typeof ServiciosRoute
   '/sobre-nosotros': typeof SobreNosotrosRoute
+  '/mi-cuenta/ofertas': typeof MiCuentaOfertasRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -118,6 +125,7 @@ export interface FileRoutesByTo {
   '/seguimiento': typeof SeguimientoRoute
   '/servicios': typeof ServiciosRoute
   '/sobre-nosotros': typeof SobreNosotrosRoute
+  '/mi-cuenta/ofertas': typeof MiCuentaOfertasRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -134,6 +142,7 @@ export interface FileRoutesById {
   '/seguimiento': typeof SeguimientoRoute
   '/servicios': typeof ServiciosRoute
   '/sobre-nosotros': typeof SobreNosotrosRoute
+  '/mi-cuenta_/ofertas': typeof MiCuentaOfertasRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -151,6 +160,7 @@ export interface FileRouteTypes {
     | '/seguimiento'
     | '/servicios'
     | '/sobre-nosotros'
+    | '/mi-cuenta/ofertas'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -166,6 +176,7 @@ export interface FileRouteTypes {
     | '/seguimiento'
     | '/servicios'
     | '/sobre-nosotros'
+    | '/mi-cuenta/ofertas'
   id:
     | '__root__'
     | '/'
@@ -181,6 +192,7 @@ export interface FileRouteTypes {
     | '/seguimiento'
     | '/servicios'
     | '/sobre-nosotros'
+    | '/mi-cuenta_/ofertas'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -197,6 +209,7 @@ export interface RootRouteChildren {
   SeguimientoRoute: typeof SeguimientoRoute
   ServiciosRoute: typeof ServiciosRoute
   SobreNosotrosRoute: typeof SobreNosotrosRoute
+  MiCuentaOfertasRoute: typeof MiCuentaOfertasRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -292,6 +305,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SobreNosotrosRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/mi-cuenta_/ofertas': {
+      id: '/mi-cuenta_/ofertas'
+      path: '/mi-cuenta/ofertas'
+      fullPath: '/mi-cuenta/ofertas'
+      preLoaderRoute: typeof MiCuentaOfertasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -309,6 +329,7 @@ const rootRouteChildren: RootRouteChildren = {
   SeguimientoRoute: SeguimientoRoute,
   ServiciosRoute: ServiciosRoute,
   SobreNosotrosRoute: SobreNosotrosRoute,
+  MiCuentaOfertasRoute: MiCuentaOfertasRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
