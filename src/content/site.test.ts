@@ -15,7 +15,8 @@ describe("Commercial rules", () => {
     expect(getClientOffers([{ ...offer, active: false }, { ...offer, placeholder: true }], "2026-10-18")).toEqual([]);
   });
   test.each([["Batería", 45], ["Pastillas de freno", 70], ["Pastillas + discos", 120], ["Amortiguadores delanteros", 120]])("%s has the requested indicative minutes", (service, minutes) => {
-    expect(indicativeTimes.find(item => item.service === service)?.minutes).toBe(minutes);
+    const actual: number | undefined = indicativeTimes.find(item => item.service === service)?.minutes;
+    expect<number | undefined>(actual).toBe(minutes);
   });
   test("future industrial location is only in planning", () => {
     expect(workshopLocations.find(location => location.id === "industrial-lleida")?.stage).toBe("planning");
