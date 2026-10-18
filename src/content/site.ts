@@ -49,6 +49,14 @@ export const secondaryNavigation = [
   { to: "/contacto", label: "Contacto" },
 ] as const;
 
+export const clientNavigation = [
+  { to: "/mi-cuenta", label: "Mi vehículo" },
+  { to: "/pedir-cita", label: "Citas" },
+  { to: "/seguimiento", label: "Seguimiento" },
+  { to: "/presupuesto-digital", label: "Presupuestos" },
+  { to: "/mi-cuenta/ofertas", label: "Ofertas" },
+] as const;
+
 export const aboutContent = {
   title: "UN TALLER NUEVO. UNA FORMA DIFERENTE DE HACER LAS COSAS.",
   intro: "PIT STOP motors nace en Lleida con una idea sencilla: hacer que cuidar del coche sea más fácil, más claro y más rápido.",
@@ -88,6 +96,7 @@ export const timingDisclaimer = "Tiempo orientativo. Puede variar según el veh�
 
 export type Offer = {
   id: string; title: string; image: string | null; description: string;
+  priceLabel?: string; discountLabel?: string;
   startDate: string | null; endDate: string | null; conditions: string | null;
   cta: "Pedir cita"; serviceCode: ServiceCode; active: boolean; placeholder: boolean;
 };
@@ -106,6 +115,9 @@ export function getOfferStatus(offer: Offer, today: string): OfferStatus {
 }
 export function getHomeOffers(items: Offer[], today: string) {
   return items.filter(offer => ["active", "upcoming"].includes(getOfferStatus(offer, today))).slice(0, 3);
+}
+export function getClientOffers(items: Offer[], today: string) {
+  return items.filter(offer => getOfferStatus(offer, today) === "active");
 }
 
 export const tyreContent = {

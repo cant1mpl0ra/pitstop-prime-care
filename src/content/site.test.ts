@@ -1,7 +1,18 @@
 import { describe, expect, test } from "bun:test";
-import { getHomeOffers, getOfferStatus, indicativeTimes, offers, workshopLocations, type Offer } from "./site";
+import { getClientOffers, getHomeOffers, getOfferStatus, indicativeTimes, offers, workshopLocations, type Offer } from "./site";
 
 describe("Commercial rules", () => {
+  test("client offers remain empty without real active campaigns", () => {
+    expect(getClientOffers(offers, "2026-10-18")).toEqual([]);
+  });
+  test("clients can only book active offers within their inclusive validity dates", () => {
+    const offer: Offer = { id: "test", title: "Test", image: null, description: "", startDate: "2026-10-18", endDate: "2026-10-20", conditions: null, cta: "Pedir cita", serviceCode: "tyres", active: true, placeholder: false };
+    expect(getClientOffers([offer], "2026-10-18")).toEqual([offer]);
+    expect(getClientOffers([offer], "2026-10-20")).toEqual([offer]);
+    expect(getClientOffers([offer], "2026-10-17")).toEqual([]);
+    expect(getClientOffers([offer], "2026-10-21")).toEqual([]);
+    expect(getClientOffers([{ ...offer, active: false }, { ...offer, placeholder: true }], "2026-10-18")).toEqual([]);
+  });
   test.each([["Batería", 45], ["Pastillas de freno", 70], ["Pastillas + discos", 120], ["Amortiguadores delanteros", 120]])("%s has the requested indicative minutes", (service, minutes) => {
     expect(indicativeTimes.find(item => item.service === service)?.minutes).toBe(minutes);
   });
