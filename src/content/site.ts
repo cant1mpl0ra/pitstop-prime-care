@@ -39,7 +39,7 @@ export const primaryNavigation = [
   { to: "/ofertas", label: "Ofertas" },
   { to: "/como-trabajamos", label: "Cómo trabajamos" },
   { to: "/sobre-nosotros", label: "Sobre nosotros" },
-  { to: "/mi-cuenta", label: "Mi cuenta" },
+  { to: "/app", label: "Mi cuenta" },
 ] as const;
 
 export const secondaryNavigation = [
@@ -50,7 +50,7 @@ export const secondaryNavigation = [
 ] as const;
 
 export const clientNavigation = [
-  { to: "/mi-cuenta", label: "Mi vehículo" },
+  { to: "/app", label: "Mi vehículo" },
   { to: "/pedir-cita", label: "Citas" },
   { to: "/seguimiento", label: "Seguimiento" },
   { to: "/presupuesto-digital", label: "Presupuestos" },

@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminRouteImport } from './routes/admin'
+import { Route as AppRouteImport } from './routes/app'
 import { Route as ComoTrabajamosRouteImport } from './routes/como-trabajamos'
 import { Route as ContactoRouteImport } from './routes/contacto'
 import { Route as MiCuentaRouteImport } from './routes/mi-cuenta'
@@ -32,6 +33,11 @@ const IndexRoute = IndexRouteImport.update({
 const AdminRoute = AdminRouteImport.update({
   id: '/admin',
   path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppRoute = AppRouteImport.update({
+  id: '/app',
+  path: '/app',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ComoTrabajamosRoute = ComoTrabajamosRouteImport.update({
@@ -98,6 +104,7 @@ const MiCuentaOfertasRoute = MiCuentaOfertasRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
+  '/app': typeof AppRoute
   '/como-trabajamos': typeof ComoTrabajamosRoute
   '/contacto': typeof ContactoRoute
   '/mi-cuenta': typeof MiCuentaRoute
@@ -114,6 +121,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
+  '/app': typeof AppRoute
   '/como-trabajamos': typeof ComoTrabajamosRoute
   '/contacto': typeof ContactoRoute
   '/mi-cuenta': typeof MiCuentaRoute
@@ -131,6 +139,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
+  '/app': typeof AppRoute
   '/como-trabajamos': typeof ComoTrabajamosRoute
   '/contacto': typeof ContactoRoute
   '/mi-cuenta': typeof MiCuentaRoute
@@ -149,6 +158,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/admin'
+    | '/app'
     | '/como-trabajamos'
     | '/contacto'
     | '/mi-cuenta'
@@ -165,6 +175,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/admin'
+    | '/app'
     | '/como-trabajamos'
     | '/contacto'
     | '/mi-cuenta'
@@ -181,6 +192,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/admin'
+    | '/app'
     | '/como-trabajamos'
     | '/contacto'
     | '/mi-cuenta'
@@ -198,6 +210,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AdminRoute: typeof AdminRoute
+  AppRoute: typeof AppRoute
   ComoTrabajamosRoute: typeof ComoTrabajamosRoute
   ContactoRoute: typeof ContactoRoute
   MiCuentaRoute: typeof MiCuentaRoute
@@ -226,6 +239,13 @@ declare module '@tanstack/react-router' {
       path: '/admin'
       fullPath: '/admin'
       preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app': {
+      id: '/app'
+      path: '/app'
+      fullPath: '/app'
+      preLoaderRoute: typeof AppRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/como-trabajamos': {
@@ -318,6 +338,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRoute: AdminRoute,
+  AppRoute: AppRoute,
   ComoTrabajamosRoute: ComoTrabajamosRoute,
   ContactoRoute: ContactoRoute,
   MiCuentaRoute: MiCuentaRoute,
