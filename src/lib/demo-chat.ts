@@ -5,12 +5,29 @@ export type DemoQuestion = {
   text: string;
   createdAt: string;
   delivery: "not-sent";
+  photos?: DemoPhoto[];
 };
 
-export function createDemoQuestion(text: string, id: string, now: Date): DemoQuestion | null {
+export type DemoPhoto = { id: string; name: string; originalSize: number; blob: Blob };
+export const MAX_PHOTOS = 5;
+export const MAX_ORIGINAL_BYTES = 5 * 1024 * 1024;
+
+export function validatePhoto(file: Pick<File, "type" | "size">, count: number): string | null {
+  if (count >= MAX_PHOTOS) return "Máximo 5 fotos por consulta.";
+  if (!file.type.startsWith("image/")) return "Selecciona un archivo de imagen.";
+  if (file.size > MAX_ORIGINAL_BYTES) return "Cada foto original debe ocupar como máximo 5 MB.";
+  return null;
+}
+
+export function removePhoto(photos: DemoPhoto[], id: string) {
+  return photos.filter(photo => photo.id !== id);
+}
+
+export function createDemoQuestion(text: string, id: string, now: Date, photos: DemoPhoto[] = []): DemoQuestion | null {
   const trimmed = text.trim();
-  if (!trimmed) return null;
-  return { id, text: trimmed, createdAt: now.toISOString(), delivery: "not-sent" };
+  if (!trimmed && photos.length === 0) return null;
+  if (photos.length > MAX_PHOTOS) return null;
+  return { id, text: trimmed, createdAt: now.toISOString(), delivery: "not-sent", ...(photos.length ? { photos } : {}) };
 }
 
 export function parseDemoQuestions(raw: string | null): DemoQuestion[] {

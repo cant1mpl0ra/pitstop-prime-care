@@ -1,4 +1,6 @@
 # Roadmap
+- [ ] Añadir fotos locales al Chat con límites, compresión, miniaturas y ampliación.
+- [ ] Probar persistencia, eliminación, cuota y pantallas móviles sin publicar.
 - [x] Añadir Chat local explícitamente no enviado al taller en /app y accesos desde Inicio y Presupuestos.
 - [x] Destacar Ofertas en Inicio y separar campañas activas de las tres futuras promociones.
 - [x] Validar chat, historial, presupuestos y navegación móvil sin publicar.

@@ -1,7 +1,7 @@
-import { useEffect, useMemo, useRef, useState, type FormEvent, type ReactNode } from "react";
+import { useEffect, useMemo, useState, type FormEvent, type ReactNode } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
-import { CalendarDays, FileText, Home, LoaderCircle, MessageCircle, Send, Route as RouteIcon, Tag } from "lucide-react";
+import { CalendarDays, FileText, Home, LoaderCircle, MessageCircle, Route as RouteIcon, Tag } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -9,7 +9,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 import { useCommercialDate } from "@/components/site/commercial-blocks";
 import { getClientOffers, getOfferStatus, offers, schedule, services, type ServiceCode } from "@/content/site";
-import { CHAT_STORAGE_KEY, createDemoQuestion, parseDemoQuestions, type DemoQuestion } from "@/lib/demo-chat";
+import { DemoChat } from "@/components/site/demo-chat";
 import { createAppointment, getAvailability } from "@/lib/appointments.functions";
 import { DEMO_STORAGE_KEY, decide, decisionLabels, demoEstimate, demoVehicle, estimateTotals, formatEuros, formatSpanishDate, initialDemoState, maxStage, parseDemoState, setStage, trackingStages, type Decision, type DemoState } from "@/lib/demo-app";
 
@@ -67,7 +67,7 @@ function ClientApp() {
         {tab === "presupuestos" && <EstimateTab state={state} setState={setState} go={go} />}
         {tab === "seguimiento" && <TrackingTab state={state} setState={setState} go={go} />}
         {tab === "ofertas" && <OffersTab go={go} />}
-        {tab === "chat" && <ChatTab />}
+        {tab === "chat" && <DemoChat />}
       </main>
       <nav aria-label="Navegación de la app" className="fixed inset-x-0 bottom-0 z-30 mx-auto w-full max-w-[430px] border-t border-border bg-background pb-[env(safe-area-inset-bottom)]">
         <ul className="grid grid-cols-6">{tabs.map(({ id, label, icon: Icon }) => <li key={id} className="min-w-0">
@@ -266,70 +266,6 @@ function OffersTab({ go }: { go: (t: Tab) => void }) {
         {o.placeholder && <p className="mt-3 text-xs text-muted-foreground">Campaña pendiente de definir. Sin precio ni vigencia anunciados.</p>}
       </Card>)}</div>
     </section>}
-  </>;
-}
-
-function ChatTab() {
-  const [messages, setMessages] = useState<DemoQuestion[]>([]);
-  const [ready, setReady] = useState(false);
-  const [draft, setDraft] = useState("");
-  const [error, setError] = useState<string | null>(null);
-  const input = useRef<HTMLTextAreaElement>(null);
-  const end = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    try {
-      setMessages(parseDemoQuestions(window.localStorage.getItem(CHAT_STORAGE_KEY)));
-    } catch {
-      setError("Este navegador no permite guardar el historial. Las preguntas permanecerán solo hasta salir de esta pantalla.");
-    }
-    setReady(true);
-    input.current?.focus({ preventScroll: true });
-  }, []);
-
-  function submit(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    const question = createDemoQuestion(draft, window.crypto.randomUUID(), new Date());
-    if (!question) return;
-    const next = [...messages, question];
-    setMessages(next);
-    setDraft("");
-    try {
-      window.localStorage.setItem(CHAT_STORAGE_KEY, JSON.stringify(next));
-      setError(null);
-    } catch {
-      setError("No se pudo guardar el historial en este dispositivo. Tu pregunta no se ha enviado al taller.");
-    }
-    input.current?.focus({ preventScroll: true });
-    requestAnimationFrame(() => end.current?.scrollIntoView({ block: "nearest", behavior: "auto" }));
-  }
-
-  return <>
-    <Title kicker="Chat · demostración">Preguntar al taller.</Title>
-    <div className="border-l-2 border-primary bg-surface-blue p-4 text-sm leading-6" role="note">
-      <p className="font-semibold">No conectado al taller</p>
-      <p className="mt-1 text-muted-foreground">Preguntas guardadas solo en este navegador. No enviado al taller. No recibirás respuestas aquí mientras no se conecte el servicio.</p>
-    </div>
-    <section className="my-6" aria-label="Historial de preguntas">
-      {!ready ? <p className="text-sm text-muted-foreground">Cargando historial…</p> : messages.length === 0 ? <p className="py-6 text-center text-sm text-muted-foreground">Todavía no tienes preguntas guardadas.</p> :
-        <ol className="space-y-4">{messages.map(message => <li key={message.id} className="ml-6 border border-border bg-surface-blue p-4">
-          <p className="text-[10px] font-semibold uppercase text-primary">Tú · Demo</p>
-          <p className="mt-2 whitespace-pre-wrap break-words text-sm leading-6 [overflow-wrap:anywhere]">{message.text}</p>
-          <time dateTime={message.createdAt} className="mt-3 block text-[10px] text-muted-foreground">{formatSpanishDate(message.createdAt)}</time>
-          <p className="mt-1 text-xs font-semibold text-muted-foreground">No enviado al taller</p>
-        </li>)}</ol>}
-      <div ref={end} />
-    </section>
-    <form onSubmit={submit} className="border-t border-border pt-4">
-      <Label htmlFor="chat-question">Tu pregunta</Label>
-      <Textarea ref={input} id="chat-question" value={draft} onChange={e => setDraft(e.target.value)} placeholder="Escribe tu pregunta…" className="mt-2 min-h-28" disabled={!ready} />
-      <div className="mt-3 flex items-center justify-between gap-3">
-        <p className="text-xs text-muted-foreground">Solo en este dispositivo</p>
-        <Button type="submit" disabled={!ready || !draft.trim()}><Send className="size-4" aria-hidden />Guardar pregunta</Button>
-      </div>
-      {error && <p role="alert" className="mt-3 text-sm text-destructive">{error}</p>}
-      <p role="status" aria-live="polite" className="sr-only">{messages.length > 0 ? `${messages.length} preguntas locales. No enviado al taller.` : ""}</p>
-    </form>
   </>;
 }
 
