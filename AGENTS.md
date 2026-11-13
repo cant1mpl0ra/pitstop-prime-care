@@ -15,3 +15,4 @@
 - Keep tyre enquiry as an explicitly unconnected client-side preview until a real provider is integrated; never imply a stock lookup or request submission occurred.
 - Keep client navigation and headings in `ClientLayout` using the public brand and design system; this preserves the published website while giving client screens consistent mobile navigation.
 - Keep client offers at the unnested `/mi-cuenta/ofertas` leaf and select only active campaigns from the shared content model; this avoids nesting under the account prototype or inventing an offer-management backend.
+- Keep human workshop chat in `/app` as local-only questions marked not sent until a verified messaging service and authenticated client/admin isolation exist; never reuse the public admin prototype for private messages.

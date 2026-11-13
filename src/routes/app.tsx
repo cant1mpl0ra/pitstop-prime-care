@@ -1,14 +1,15 @@
-import { useEffect, useMemo, useState, type FormEvent, type ReactNode } from "react";
+import { useEffect, useMemo, useRef, useState, type FormEvent, type ReactNode } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
-import { CalendarDays, FileText, Home, LoaderCircle, Route as RouteIcon, Tag } from "lucide-react";
+import { CalendarDays, FileText, Home, LoaderCircle, MessageCircle, Send, Route as RouteIcon, Tag } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 import { useCommercialDate } from "@/components/site/commercial-blocks";
-import { getClientOffers, offers, schedule, services, type ServiceCode } from "@/content/site";
+import { getClientOffers, getOfferStatus, offers, schedule, services, type ServiceCode } from "@/content/site";
+import { CHAT_STORAGE_KEY, createDemoQuestion, parseDemoQuestions, type DemoQuestion } from "@/lib/demo-chat";
 import { createAppointment, getAvailability } from "@/lib/appointments.functions";
 import { DEMO_STORAGE_KEY, decide, decisionLabels, demoEstimate, demoVehicle, estimateTotals, formatEuros, formatSpanishDate, initialDemoState, maxStage, parseDemoState, setStage, trackingStages, type Decision, type DemoState } from "@/lib/demo-app";
 
@@ -17,6 +18,7 @@ const tabs = [
   { id: "citas", label: "Citas", icon: CalendarDays },
   { id: "presupuestos", label: "Presupuestos", icon: FileText },
   { id: "seguimiento", label: "Seguimiento", icon: RouteIcon },
+  { id: "chat", label: "Chat", icon: MessageCircle },
   { id: "ofertas", label: "Ofertas", icon: Tag },
 ] as const;
 type Tab = (typeof tabs)[number]["id"];
@@ -25,9 +27,9 @@ export const Route = createFileRoute("/app")({
   validateSearch: (s: Record<string, unknown>): { tab?: Tab | undefined } => ({ tab: tabs.some(t => t.id === s["tab"]) ? s["tab"] as Tab : undefined }),
   head: () => ({ meta: [
     { title: "App de clientes | PIT STOP motors" },
-    { name: "description", content: "App de clientes de PIT STOP motors: citas, presupuestos, seguimiento del vehículo y ofertas. Demostración pública." },
+    { name: "description", content: "App de clientes de PIT STOP motors: citas, presupuestos, seguimiento, preguntas en chat de demostración y ofertas." },
     { property: "og:title", content: "App de clientes | PIT STOP motors" },
-    { property: "og:description", content: "Prueba la app: reserva, aprueba presupuestos y sigue la reparación." },
+    { property: "og:description", content: "Consulta ofertas y prueba presupuestos, seguimiento y preguntas locales; reserva con la agenda real." },
     { property: "og:type", content: "website" },
     { name: "twitter:card", content: "summary" },
     { name: "robots", content: "noindex" },
@@ -62,16 +64,17 @@ function ClientApp() {
       <main className="flex-1 px-5 pb-28 pt-6" aria-live="polite">
         {tab === "inicio" && <HomeTab state={state} go={go} />}
         {tab === "citas" && <BookingTab />}
-        {tab === "presupuestos" && <EstimateTab state={state} setState={setState} />}
+        {tab === "presupuestos" && <EstimateTab state={state} setState={setState} go={go} />}
         {tab === "seguimiento" && <TrackingTab state={state} setState={setState} go={go} />}
         {tab === "ofertas" && <OffersTab go={go} />}
+        {tab === "chat" && <ChatTab />}
       </main>
-      <nav aria-label="Navegación de la app" className="fixed inset-x-0 bottom-0 z-30 mx-auto w-full max-w-[430px] border-t border-border bg-background pb-[env(safe-area-inset-bottom)] sm:absolute">
-        <ul className="grid grid-cols-5">{tabs.map(({ id, label, icon: Icon }) => <li key={id}>
-          <button type="button" onClick={() => go(id)} aria-current={tab === id ? "page" : undefined}
-            className={`flex h-16 w-full flex-col items-center justify-center gap-1 text-[10px] font-semibold focus-visible:outline-2 focus-visible:outline-ring ${tab === id ? "text-primary" : "text-muted-foreground"}`}>
-            <Icon className="size-5" aria-hidden />{label}
-          </button></li>)}</ul>
+      <nav aria-label="Navegación de la app" className="fixed inset-x-0 bottom-0 z-30 mx-auto w-full max-w-[430px] border-t border-border bg-background pb-[env(safe-area-inset-bottom)]">
+        <ul className="grid grid-cols-6">{tabs.map(({ id, label, icon: Icon }) => <li key={id} className="min-w-0">
+          <Button variant="ghost" type="button" onClick={() => go(id)} aria-label={label} aria-current={tab === id ? "page" : undefined}
+            className={`flex h-16 w-full min-w-0 flex-col items-center justify-center gap-1 rounded-none px-0 text-[9px] font-semibold focus-visible:outline-2 focus-visible:outline-ring ${tab === id ? "text-primary" : "text-muted-foreground"}`}>
+            <Icon className="size-5" aria-hidden /><span className="normal-case">{id === "presupuestos" ? "Presup." : id === "seguimiento" ? "Seguim." : label}</span>
+          </Button></li>)}</ul>
       </nav>
     </div>
   </div>;
@@ -99,6 +102,16 @@ function HomeTab({ state, go }: { state: DemoState; go: (t: Tab) => void }) {
     <Title kicker="Hola">Tu coche, de un vistazo.</Title>
     <div className="space-y-4">
       <VehicleCard />
+      <Card className="border-primary bg-surface-blue">
+        <p className="text-[11px] font-bold uppercase text-primary">Ofertas PIT STOP</p>
+        <p className="mt-2 text-sm text-muted-foreground">Consulta las campañas vigentes y las próximas promociones del taller.</p>
+        <Button size="sm" className="mt-4" onClick={() => go("ofertas")}><Tag className="size-4" aria-hidden />Ver ofertas</Button>
+      </Card>
+      <Card>
+        <p className="font-semibold">¿Tienes una pregunta?</p>
+        <p className="mt-2 text-sm text-muted-foreground">Chat demo: tus preguntas se guardan en este dispositivo. No se envían al taller.</p>
+        <Button size="sm" variant="outline" className="mt-4" onClick={() => go("chat")}><MessageCircle className="size-4" aria-hidden />Preguntar al taller</Button>
+      </Card>
       <Card>
         <p className="text-[11px] font-bold uppercase text-muted-foreground">Próxima cita</p>
         <p className="mt-2 text-sm">No tienes citas reservadas.</p>
@@ -133,7 +146,7 @@ const confirmCopy: Record<Exclude<Decision, "pending">, { title: string; body: s
   clarification: { title: "¿Solicitar aclaración?", body: "En la demo se marca que quieres hablar con el mecánico antes de decidir. No se envía nada al taller.", action: "Solicitar aclaración" },
 };
 
-function EstimateTab({ state, setState }: { state: DemoState; setState: (s: DemoState) => void }) {
+function EstimateTab({ state, setState, go }: { state: DemoState; setState: (s: DemoState) => void; go: (t: Tab) => void }) {
   const [pending, setPending] = useState<Exclude<Decision, "pending"> | null>(null);
   const t = estimateTotals(demoEstimate.lines, demoEstimate.vatRate);
   const decided = state.decision === "approved" || state.decision === "rejected";
@@ -163,6 +176,7 @@ function EstimateTab({ state, setState }: { state: DemoState; setState: (s: Demo
       <Card>
         <p className="text-[11px] font-bold uppercase text-muted-foreground">Nota del mecánico</p>
         <p className="mt-2 text-sm leading-6">{demoEstimate.mechanicNote}</p>
+        <Button variant="outline" size="sm" className="mt-4" onClick={() => go("chat")}><MessageCircle className="size-4" aria-hidden />Preguntar sobre el presupuesto</Button>
       </Card>
       <Card>
         <p className="text-[11px] font-bold uppercase text-muted-foreground">Qué se cambia</p>
@@ -227,8 +241,10 @@ function TrackingTab({ state, setState, go }: { state: DemoState; setState: (s: 
 function OffersTab({ go }: { go: (t: Tab) => void }) {
   const today = useCommercialDate();
   const list = today ? getClientOffers(offers, today) : [];
+  const upcoming = today ? offers.filter(o => getOfferStatus(o, today) === "upcoming") : [];
   return <>
     <Title kicker="Ofertas">Campañas del taller.</Title>
+    <h2 className="mb-3 text-sm font-semibold">Ofertas activas</h2>
     {!today ? <p className="text-sm text-muted-foreground">Consultando ofertas…</p> : list.length === 0 ? <Card>
       <p className="font-semibold">No hay ofertas activas ahora.</p>
       <p className="mt-2 text-sm text-muted-foreground">Puedes pedir cita para el mantenimiento de tu coche sin esperar a una promoción.</p>
@@ -241,6 +257,79 @@ function OffersTab({ go }: { go: (t: Tab) => void }) {
       <p className="mt-3 text-xs text-muted-foreground">Vigencia: {o.startDate ?? "—"} a {o.endDate ?? "—"} · {o.conditions ?? "Sin condiciones adicionales indicadas."}</p>
       <Button className="mt-4" onClick={() => go("citas")}>{o.cta}</Button>
     </Card>)}</div>}
+    {upcoming.length > 0 && <section className="mt-8">
+      <h2 className="mb-3 font-display text-xl font-semibold">Próximamente</h2>
+      <div className="space-y-3">{upcoming.map(o => <Card key={o.id}>
+        <p className="text-[10px] font-bold uppercase text-primary">Próximamente</p>
+        <h3 className="mt-2 font-semibold">{o.title}</h3>
+        <p className="mt-2 text-sm text-muted-foreground">{o.description}</p>
+        {o.placeholder && <p className="mt-3 text-xs text-muted-foreground">Campaña pendiente de definir. Sin precio ni vigencia anunciados.</p>}
+      </Card>)}</div>
+    </section>}
+  </>;
+}
+
+function ChatTab() {
+  const [messages, setMessages] = useState<DemoQuestion[]>([]);
+  const [ready, setReady] = useState(false);
+  const [draft, setDraft] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const input = useRef<HTMLTextAreaElement>(null);
+  const end = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    try {
+      setMessages(parseDemoQuestions(window.localStorage.getItem(CHAT_STORAGE_KEY)));
+    } catch {
+      setError("Este navegador no permite guardar el historial. Las preguntas permanecerán solo hasta salir de esta pantalla.");
+    }
+    setReady(true);
+    input.current?.focus({ preventScroll: true });
+  }, []);
+
+  function submit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const question = createDemoQuestion(draft, window.crypto.randomUUID(), new Date());
+    if (!question) return;
+    const next = [...messages, question];
+    setMessages(next);
+    setDraft("");
+    try {
+      window.localStorage.setItem(CHAT_STORAGE_KEY, JSON.stringify(next));
+      setError(null);
+    } catch {
+      setError("No se pudo guardar el historial en este dispositivo. Tu pregunta no se ha enviado al taller.");
+    }
+    input.current?.focus({ preventScroll: true });
+    requestAnimationFrame(() => end.current?.scrollIntoView({ block: "nearest", behavior: "auto" }));
+  }
+
+  return <>
+    <Title kicker="Chat · demostración">Preguntar al taller.</Title>
+    <div className="border-l-2 border-primary bg-surface-blue p-4 text-sm leading-6" role="note">
+      <p className="font-semibold">No conectado al taller</p>
+      <p className="mt-1 text-muted-foreground">Preguntas guardadas solo en este navegador. No enviado al taller. No recibirás respuestas aquí mientras no se conecte el servicio.</p>
+    </div>
+    <section className="my-6" aria-label="Historial de preguntas">
+      {!ready ? <p className="text-sm text-muted-foreground">Cargando historial…</p> : messages.length === 0 ? <p className="py-6 text-center text-sm text-muted-foreground">Todavía no tienes preguntas guardadas.</p> :
+        <ol className="space-y-4">{messages.map(message => <li key={message.id} className="ml-6 border border-border bg-surface-blue p-4">
+          <p className="text-[10px] font-semibold uppercase text-primary">Tú · Demo</p>
+          <p className="mt-2 whitespace-pre-wrap break-words text-sm leading-6 [overflow-wrap:anywhere]">{message.text}</p>
+          <time dateTime={message.createdAt} className="mt-3 block text-[10px] text-muted-foreground">{formatSpanishDate(message.createdAt)}</time>
+          <p className="mt-1 text-xs font-semibold text-muted-foreground">No enviado al taller</p>
+        </li>)}</ol>}
+      <div ref={end} />
+    </section>
+    <form onSubmit={submit} className="border-t border-border pt-4">
+      <Label htmlFor="chat-question">Tu pregunta</Label>
+      <Textarea ref={input} id="chat-question" value={draft} onChange={e => setDraft(e.target.value)} placeholder="Escribe tu pregunta…" className="mt-2 min-h-28" disabled={!ready} />
+      <div className="mt-3 flex items-center justify-between gap-3">
+        <p className="text-xs text-muted-foreground">Solo en este dispositivo</p>
+        <Button type="submit" disabled={!ready || !draft.trim()}><Send className="size-4" aria-hidden />Guardar pregunta</Button>
+      </div>
+      {error && <p role="alert" className="mt-3 text-sm text-destructive">{error}</p>}
+      <p role="status" aria-live="polite" className="sr-only">{messages.length > 0 ? `${messages.length} preguntas locales. No enviado al taller.` : ""}</p>
+    </form>
   </>;
 }
 

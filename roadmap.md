@@ -1,4 +1,7 @@
 # Roadmap
+- [x] Añadir Chat local explícitamente no enviado al taller en /app y accesos desde Inicio y Presupuestos.
+- [x] Destacar Ofertas en Inicio y separar campañas activas de las tres futuras promociones.
+- [x] Validar chat, historial, presupuestos y navegación móvil sin publicar.
 - [x] Identificar funciones reales de cliente sin modificar la web pública.
 - [x] Añadir navegación de cliente y Ofertas con estado vacío, conservando la identidad compartida.
 - [x] Comprobar pantallas de cliente, ofertas y validación de kilómetros en escritorio y móvil.
